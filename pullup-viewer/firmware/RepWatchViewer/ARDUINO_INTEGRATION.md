@@ -1,5 +1,7 @@
 # Merge Wi-Fi telemetry into RepWatch
 
+> For older sketches only. The current [RepWatch sketch](../../../RepWatch/README.md) already includes Wi-Fi streaming. Turn it on under **Settings → Wireless**.
+
 This add-on is for the existing Arduino RepWatch sketch on the Waveshare ESP32-S3-Touch-AMOLED-2.06. Paste this document into the Arduino chat along with the current RepWatch sketch. The two source files are included below and belong next to `RepWatch.ino`.
 
 In `Watch.cpp`, add this alongside the other includes.

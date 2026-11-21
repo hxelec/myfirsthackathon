@@ -1,5 +1,7 @@
 RepWatch wireless handoff
 
+For older sketches only. The current RepWatch sketch already includes streaming under Settings > Wireless.
+
 Task for the firmware chat
 
 Add live IMU streaming to the current RepWatch Arduino sketch for the Waveshare ESP32-S3-Touch-AMOLED-2.06. The receiving app is Lift Studio, in pullup-viewer. The two complete Arduino source files are below. Add them next to RepWatch.ino.
