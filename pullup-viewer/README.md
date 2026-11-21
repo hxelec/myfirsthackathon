@@ -2,6 +2,8 @@
 
 Lift Studio animates a hammer curl, squat, deadlift, bench press, or pull-up from one six-axis IMU. It reads RepWatch microSD recordings and streams over a local ESP32 Wi-Fi access point. It detects reps locally and overlays two time-normalized traces. The original roll-only view remains available with `--legacy-pullup`. [Pull-up Anatomy setup](PULLUP.md)
 
+To see the viewer before installing it, [watch the five-exercise demo](demo/lift-studio-demo.mp4). To collect your own sets, use the [RepWatch firmware and calibration guide](../RepWatch/README.md).
+
 ## Start on Windows 11
 
 Use 64-bit CPython 3.12 or 3.13 with Tk support and the Windows Python launcher. Open PowerShell in this folder and start the app. The example uses Python 3.13.
@@ -13,6 +15,8 @@ py -3.13 -m venv .venv
 ```
 
 **Demo** opens by default. Choose an exercise from the dropdown to see three simulated reps. Drag the 3D scene to orbit, scroll to zoom, or press **Home** to reset the camera. Use **Pause** or **Space** and the timeline to inspect a pose. The right panel starts with the last two complete reps. **Prev pair** and **Next pair** step through consecutive comparisons.
+
+For subsequent sessions, double-click [Launch-Lift-Studio.cmd](../Launch-Lift-Studio.cmd) in the repository root. It uses the Python environment created above.
 
 | Source | How to use it |
 | --- | --- |

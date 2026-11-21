@@ -1,0 +1,290 @@
+{
+ "title": "RepSNS Master Plan: 3-day full-body strength and muscle",
+ "summary": "Your main plan. Three full-body sessions a week (Monday, Wednesday, Saturday), about 60 minutes each. Each day pairs a main lower-body lift with upper-body push and pull work. Every working set ends when the watch buzzes at its velocity-loss target or when you reach the top of the rep range. Monday and Saturday are the heavier days and Wednesday is a little lighter so you recover between them.",
+ "assumptions": [
+  "Intermediate lifter, at least 6 months of regular training",
+  "Full gym: barbell, Smith machine, leg press, cables, pull-up bar, dumbbells",
+  "About 60 minutes per session including warm-up and rest",
+  "Goal: build strength and muscle at the same time",
+  "No injuries or limitations"
+ ],
+ "velocity_loss_explainer": "Your watch measures how fast each rep moves. Your first reps set the baseline. When a rep is slower than the baseline by the target percentage (20%, 40% or 60%), the watch buzzes and the set is done. A higher percentage means more fatigue and a set closer to failure. 0 means the watch doesn't track that exercise.",
+ "days": [
+  {
+   "name": "Monday",
+   "focus": "Full body: squat and horizontal push",
+   "estimated_minutes": 60,
+   "warmup": [
+    {
+     "activity": "Easy bike or rower",
+     "prescription": "5 min, conversational pace"
+    },
+    {
+     "activity": "Hip airplanes + band pull-aparts",
+     "prescription": "1x8 each side"
+    }
+   ],
+   "exercises": [
+    {
+     "name": "Leg press",
+     "muscle_group": "Quads",
+     "body_region": "Lower",
+     "warmup_sets": "1x5 at ~50%",
+     "working_sets": 2,
+     "rep_range": "6-10",
+     "target_vl_percent": 40,
+     "rest_seconds": 180,
+     "notes": "Under 6 reps: drop the weight. Over 10: add 5 kg."
+    },
+    {
+     "name": "Romanian deadlift",
+     "muscle_group": "Hamstrings & glutes",
+     "body_region": "Lower",
+     "warmup_sets": "1x5 at ~50%",
+     "working_sets": 2,
+     "rep_range": "6-10",
+     "target_vl_percent": 60,
+     "rest_seconds": 180,
+     "notes": "Keep the bar close to your legs. Over 10 reps: add 5 kg."
+    },
+    {
+     "name": "Smith machine incline bench",
+     "muscle_group": "Chest",
+     "body_region": "Upper",
+     "warmup_sets": "1x5 at ~50%",
+     "working_sets": 2,
+     "rep_range": "6-10",
+     "target_vl_percent": 40,
+     "rest_seconds": 180,
+     "notes": "Over 10 reps: add 2.5 kg."
+    },
+    {
+     "name": "Weighted pull-up",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x5 bodyweight pull-ups",
+     "working_sets": 2,
+     "rep_range": "6-10",
+     "target_vl_percent": 40,
+     "rest_seconds": 180,
+     "notes": "Use bodyweight until you get 10 reps, then add 2.5 kg."
+    },
+    {
+     "name": "Cable lateral raise",
+     "muscle_group": "Shoulders",
+     "body_region": "Upper",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "10-15",
+     "target_vl_percent": 0,
+     "rest_seconds": 60,
+     "notes": "Not tracked by the watch. Stop 1-2 reps before failure."
+    }
+   ],
+   "cooldown": "3 min easy walk, light hip flexor and chest stretch"
+  },
+  {
+   "name": "Wednesday",
+   "focus": "Full body: lighter, speed and back",
+   "estimated_minutes": 55,
+   "warmup": [
+    {
+     "activity": "Easy bike or rower",
+     "prescription": "5 min, conversational pace"
+    },
+    {
+     "activity": "Bodyweight squats + scapular pull-ups",
+     "prescription": "1x8 each side"
+    }
+   ],
+   "exercises": [
+    {
+     "name": "Back squat",
+     "muscle_group": "Quads",
+     "body_region": "Lower",
+     "warmup_sets": "1x5 empty bar, 1x3 at ~60%",
+     "working_sets": 3,
+     "rep_range": "4-6",
+     "target_vl_percent": 20,
+     "rest_seconds": 150,
+     "notes": "Move every rep fast. Over 6 reps: add 5 kg."
+    },
+    {
+     "name": "Chest-to-bar pull-up",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x5 pull-ups",
+     "working_sets": 2,
+     "rep_range": "2-3",
+     "target_vl_percent": 0,
+     "rest_seconds": 120,
+     "notes": "Skill work. Not tracked, focus on speed."
+    },
+    {
+     "name": "Chest-supported dumbbell row",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x8 light",
+     "working_sets": 3,
+     "rep_range": "8-12",
+     "target_vl_percent": 40,
+     "rest_seconds": 120,
+     "notes": "Over 12 reps: add 2 kg per dumbbell."
+    },
+    {
+     "name": "Dumbbell bench press",
+     "muscle_group": "Chest",
+     "body_region": "Upper",
+     "warmup_sets": "1x8 light",
+     "working_sets": 2,
+     "rep_range": "8-12",
+     "target_vl_percent": 20,
+     "rest_seconds": 120,
+     "notes": "Lighter day: stop early and keep the reps crisp."
+    },
+    {
+     "name": "Hanging knee raise",
+     "muscle_group": "Core",
+     "body_region": "Core",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "8-12",
+     "target_vl_percent": 0,
+     "rest_seconds": 60,
+     "notes": "Not tracked by the watch. Slow and controlled."
+    }
+   ],
+   "cooldown": "3 min easy walk, light lat and hamstring stretch"
+  },
+  {
+   "name": "Saturday",
+   "focus": "Full body: hinge and vertical pull",
+   "estimated_minutes": 60,
+   "warmup": [
+    {
+     "activity": "Easy bike or rower",
+     "prescription": "5 min, conversational pace"
+    },
+    {
+     "activity": "Hip airplanes + band pull-aparts",
+     "prescription": "1x8 each side"
+    }
+   ],
+   "exercises": [
+    {
+     "name": "Leg press",
+     "muscle_group": "Quads",
+     "body_region": "Lower",
+     "warmup_sets": "1x5 at ~50%",
+     "working_sets": 2,
+     "rep_range": "6-10",
+     "target_vl_percent": 40,
+     "rest_seconds": 180,
+     "notes": "Under 6 reps: drop the weight. Over 10: add 5 kg."
+    },
+    {
+     "name": "Romanian deadlift",
+     "muscle_group": "Hamstrings & glutes",
+     "body_region": "Lower",
+     "warmup_sets": "1x5 at ~50%",
+     "working_sets": 2,
+     "rep_range": "6-10",
+     "target_vl_percent": 60,
+     "rest_seconds": 180,
+     "notes": "Over 10 reps: add 5 kg."
+    },
+    {
+     "name": "Weighted pull-up",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x5 bodyweight pull-ups",
+     "working_sets": 2,
+     "rep_range": "6-10",
+     "target_vl_percent": 40,
+     "rest_seconds": 180,
+     "notes": "Over 10 reps: add 2.5 kg."
+    },
+    {
+     "name": "Seated dumbbell shoulder press",
+     "muscle_group": "Shoulders",
+     "body_region": "Upper",
+     "warmup_sets": "1x8 light",
+     "working_sets": 2,
+     "rep_range": "8-12",
+     "target_vl_percent": 40,
+     "rest_seconds": 120,
+     "notes": "Over 12 reps: add 2 kg per dumbbell."
+    },
+    {
+     "name": "Cable triceps pushdown + curl",
+     "muscle_group": "Arms",
+     "body_region": "Upper",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "10-15",
+     "target_vl_percent": 0,
+     "rest_seconds": 60,
+     "notes": "Not tracked by the watch. Do one set of each back to back."
+    }
+   ],
+   "cooldown": "3 min easy walk, light hip flexor and shoulder stretch"
+  }
+ ],
+ "progression_rules": [
+  "Can't reach the bottom of the rep range on working sets? Drop the weight if you were well short, or repeat the same weight next time.",
+  "Over the top of the rep range before the watch buzzes? Add 5 kg on lower-body exercises and 2.5 kg on upper-body exercises next session.",
+  "Rest 3 minutes between sets on the main lifts and 1-2 minutes on smaller exercises.",
+  "Keep the warm-up sets light. They prepare you; they shouldn't tire you."
+ ],
+ "block_weeks": [
+  {
+   "week": 1,
+   "working_sets_per_week": 32,
+   "target_vl_percent": 20,
+   "focus": "Learn the VL buzz and the lifts, leave reps in reserve"
+  },
+  {
+   "week": 2,
+   "working_sets_per_week": 32,
+   "target_vl_percent": 40,
+   "focus": "Use the targets in the tables"
+  },
+  {
+   "week": 3,
+   "working_sets_per_week": 36,
+   "target_vl_percent": 40,
+   "focus": "Add one set to the first lift of each day"
+  },
+  {
+   "week": 4,
+   "working_sets_per_week": 36,
+   "target_vl_percent": 60,
+   "focus": "Hardest week: push the main lifts slightly further"
+  },
+  {
+   "week": 5,
+   "working_sets_per_week": 20,
+   "target_vl_percent": 20,
+   "focus": "Lighter week to recover, then start again from week 2"
+  }
+ ],
+ "adaptations": [
+  "No limitations were given. If an exercise causes pain, stop it and ask the AI coach for a swap; check anything persistent with a professional."
+ ],
+ "nutrition": {
+  "pre_workout": [
+   "Eat a normal meal with carbs and some protein 2-3 hours before, or a small carb snack (a banana, toast) 30-60 minutes before.",
+   "Coffee 30-60 minutes before is optional if it agrees with you."
+  ],
+  "post_workout": [
+   "Have a meal with protein (around 20-40 g) and carbs within a few hours.",
+   "Total daily protein matters more than exact timing."
+  ],
+  "hydration": "Drink water through the day and sip during the session. Add electrolytes if you sweat heavily."
+ },
+ "clarifying_questions": [
+  "Do Monday, Wednesday and Saturday still suit you?",
+  "Any exercises that cause pain or that you dislike?",
+  "What is your main goal for the next 6 weeks?"
+ ]
+}

@@ -1,0 +1,298 @@
+{
+ "title": "Seated upper-body strength plan for a wheelchair user",
+ "summary": "Three seated upper-body sessions a week (Monday, Wednesday, Friday), about 45 minutes each, done from the wheelchair or from an accessible machine seat. There are about two pulling sets for every pushing set, which protects the shoulders that also do the work of pushing the chair every day. VL targets are kept low so sets stop before fatigue makes form break down.",
+ "assumptions": [
+  "Uses a manual wheelchair full time and cannot walk or stand",
+  "Full use of arms and hands; trunk control may be limited",
+  "Gym with cables, dumbbells and wheelchair-accessible machines (or a seat that swings away)",
+  "Goal: upper-body strength, shoulder health and easier transfers and pushing",
+  "Not a beginner to exercise, but new to velocity-loss training"
+ ],
+ "velocity_loss_explainer": "Your watch measures how fast each rep moves. Your first reps set the baseline. When a rep is slower than the baseline by the target percentage (20% or 40% in this plan), the watch buzzes and the set is done. Lower targets keep you further from failure, which matters when your shoulders also push your chair all day. 0 means the watch doesn't track that exercise.",
+ "days": [
+  {
+   "name": "Monday",
+   "focus": "Pull and push: back and chest",
+   "estimated_minutes": 45,
+   "warmup": [
+    {
+     "activity": "Arm-crank ergometer (or wheeling at an easy pace)",
+     "prescription": "5 min, conversational pace"
+    },
+    {
+     "activity": "Band pull-aparts + shoulder circles",
+     "prescription": "1x12 pull-aparts, 10 circles each way"
+    }
+   ],
+   "exercises": [
+    {
+     "name": "Seated cable row (chair brakes on)",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x10 light",
+     "working_sets": 3,
+     "rep_range": "8-12",
+     "target_vl_percent": 40,
+     "rest_seconds": 120,
+     "notes": "Lock the brakes and brace against the backrest. Squeeze your shoulder blades together at the end of each rep."
+    },
+    {
+     "name": "Lat pulldown (wheelchair-accessible or transfer to seat)",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x10 light",
+     "working_sets": 3,
+     "rep_range": "8-12",
+     "target_vl_percent": 20,
+     "rest_seconds": 120,
+     "notes": "Pull to the upper chest, not behind the neck. Use the thigh pad or a strap if trunk control is limited."
+    },
+    {
+     "name": "Seated chest press machine",
+     "muscle_group": "Chest",
+     "body_region": "Upper",
+     "warmup_sets": "1x10 light",
+     "working_sets": 2,
+     "rep_range": "8-12",
+     "target_vl_percent": 20,
+     "rest_seconds": 120,
+     "notes": "Keep the shoulders down and back. Stop the set if the front of the shoulder pinches."
+    },
+    {
+     "name": "Cable face pull",
+     "muscle_group": "Shoulders",
+     "body_region": "Upper",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "12-15",
+     "target_vl_percent": 20,
+     "rest_seconds": 90,
+     "notes": "Rope at eye height. Pull towards your forehead and rotate your hands outward."
+    },
+    {
+     "name": "Seated dumbbell biceps curl",
+     "muscle_group": "Arms",
+     "body_region": "Upper",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "10-12",
+     "target_vl_percent": 20,
+     "rest_seconds": 60,
+     "notes": "Keep your elbows by your sides."
+    }
+   ],
+   "cooldown": "3 min easy arm crank, chest doorway-style stretch against the chair frame, then a pressure-relief shift"
+  },
+  {
+   "name": "Wednesday",
+   "focus": "Shoulder health and trunk",
+   "estimated_minutes": 40,
+   "warmup": [
+    {
+     "activity": "Arm-crank ergometer (or wheeling at an easy pace)",
+     "prescription": "5 min, conversational pace"
+    },
+    {
+     "activity": "Band pull-aparts + shoulder circles",
+     "prescription": "1x12 pull-aparts, 10 circles each way"
+    }
+   ],
+   "exercises": [
+    {
+     "name": "Single-arm cable row",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x10 light each side",
+     "working_sets": 3,
+     "rep_range": "10-12",
+     "target_vl_percent": 20,
+     "rest_seconds": 90,
+     "notes": "Do one arm at a time so you can hold the chair with the other hand."
+    },
+    {
+     "name": "Cable external rotation",
+     "muscle_group": "Shoulders",
+     "body_region": "Upper",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "12-15",
+     "target_vl_percent": 0,
+     "rest_seconds": 60,
+     "notes": "Not tracked by the watch. Elbow at your side, light weight, slow and controlled."
+    },
+    {
+     "name": "Seated Pallof press",
+     "muscle_group": "Core",
+     "body_region": "Core",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "8-10 each side",
+     "target_vl_percent": 0,
+     "rest_seconds": 60,
+     "notes": "Not tracked by the watch. Only push as far as you can stay upright. Skip it if trunk control is very limited."
+    },
+    {
+     "name": "Seated cable straight-arm pulldown",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x10 light",
+     "working_sets": 2,
+     "rep_range": "10-12",
+     "target_vl_percent": 20,
+     "rest_seconds": 90,
+     "notes": "Builds the muscles used for transfers and pushing."
+    },
+    {
+     "name": "Cable triceps pushdown",
+     "muscle_group": "Arms",
+     "body_region": "Upper",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "10-12",
+     "target_vl_percent": 20,
+     "rest_seconds": 60,
+     "notes": "Keep the elbows tucked in."
+    }
+   ],
+   "cooldown": "3 min easy arm crank, gentle neck and lat stretch, then a pressure-relief shift"
+  },
+  {
+   "name": "Friday",
+   "focus": "Pull and press: back and shoulders",
+   "estimated_minutes": 45,
+   "warmup": [
+    {
+     "activity": "Arm-crank ergometer (or wheeling at an easy pace)",
+     "prescription": "5 min, conversational pace"
+    },
+    {
+     "activity": "Band pull-aparts + shoulder circles",
+     "prescription": "1x12 pull-aparts, 10 circles each way"
+    }
+   ],
+   "exercises": [
+    {
+     "name": "Seated cable row, wide grip",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x10 light",
+     "working_sets": 3,
+     "rep_range": "8-12",
+     "target_vl_percent": 40,
+     "rest_seconds": 120,
+     "notes": "Brakes on, chest tall."
+    },
+    {
+     "name": "Assisted pull-down or chin-up on a low bar (from the chair)",
+     "muscle_group": "Back",
+     "body_region": "Upper",
+     "warmup_sets": "1x5 light",
+     "working_sets": 2,
+     "rep_range": "6-10",
+     "target_vl_percent": 20,
+     "rest_seconds": 120,
+     "notes": "If there is no low bar, repeat the lat pulldown from Monday."
+    },
+    {
+     "name": "Seated landmine press (neutral grip)",
+     "muscle_group": "Shoulders",
+     "body_region": "Upper",
+     "warmup_sets": "1x10 light",
+     "working_sets": 2,
+     "rep_range": "8-12",
+     "target_vl_percent": 20,
+     "rest_seconds": 120,
+     "notes": "Safer for the shoulder than pressing straight overhead. Stop if it hurts."
+    },
+    {
+     "name": "Seated dumbbell rear-delt raise",
+     "muscle_group": "Shoulders",
+     "body_region": "Upper",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "12-15",
+     "target_vl_percent": 0,
+     "rest_seconds": 60,
+     "notes": "Not tracked by the watch. Lean forward only as far as you can stay balanced."
+    },
+    {
+     "name": "Seated hammer curl",
+     "muscle_group": "Arms",
+     "body_region": "Upper",
+     "warmup_sets": "none",
+     "working_sets": 2,
+     "rep_range": "10-12",
+     "target_vl_percent": 20,
+     "rest_seconds": 60,
+     "notes": "Strengthens grip for pushing the wheel rims."
+    }
+   ],
+   "cooldown": "3 min easy arm crank, chest and shoulder stretch, then a pressure-relief shift"
+  }
+ ],
+ "progression_rules": [
+  "Can't reach the bottom of the rep range? Drop the weight a little, or repeat the same weight next time.",
+  "Over the top of the rep range before the watch buzzes? Add the smallest step available next time (about 2.5 kg on cables and machines, 1-2 kg on dumbbells).",
+  "Never add weight on a day your shoulders already ache from pushing the chair.",
+  "Do a pressure-relief shift (lean side to side or forward) every 15-20 minutes during the session."
+ ],
+ "block_weeks": [
+  {
+   "week": 1,
+   "working_sets_per_week": 34,
+   "target_vl_percent": 20,
+   "focus": "Learn the movements and the VL buzz, find starting weights"
+  },
+  {
+   "week": 2,
+   "working_sets_per_week": 34,
+   "target_vl_percent": 20,
+   "focus": "Same targets, small weight increases"
+  },
+  {
+   "week": 3,
+   "working_sets_per_week": 38,
+   "target_vl_percent": 40,
+   "focus": "Use 40% on the rows and add a set to the first exercise"
+  },
+  {
+   "week": 4,
+   "working_sets_per_week": 38,
+   "target_vl_percent": 40,
+   "focus": "Hold 40% on the rows, keep everything else at 20%"
+  },
+  {
+   "week": 5,
+   "working_sets_per_week": 22,
+   "target_vl_percent": 20,
+   "focus": "Lighter week to let the shoulders recover"
+  }
+ ],
+ "adaptations": [
+  "Every exercise is done seated, from the wheelchair with the brakes locked or on an accessible machine seat.",
+  "There are about two pulling sets for each pushing set. Pushing a wheelchair already works the chest and front of the shoulders a lot, so extra pulling helps keep the shoulders balanced and healthy.",
+  "Lower VL targets (mostly 20%, 40% only on stable rows) keep sets away from failure and reduce shoulder strain.",
+  "Overhead pressing is replaced by a landmine press, which is easier on the shoulders.",
+  "Use a chest strap or the machine's pads if trunk control is limited, and skip the Pallof press if sitting upright is hard.",
+  "If you have a spinal cord injury at T6 or above, watch for signs of autonomic dysreflexia (pounding headache, flushing or sweating above the injury, a sudden rise in blood pressure). Stop straight away and follow your emergency plan.",
+  "Check your skin after sessions and stay cool, because sweating and temperature control may be affected.",
+  "This is not medical advice. Please go through this plan with your doctor or physiotherapist before you start, and stop any exercise that causes sharp or worsening pain."
+ ],
+ "nutrition": {
+  "pre_workout": [
+   "Eat a normal meal 2-3 hours before, or a small snack (a banana, toast) 30-60 minutes before.",
+   "Plan bathroom or bladder management before the session so you don't need to stop partway."
+  ],
+  "post_workout": [
+   "Have a meal with protein (around 20-40 g) and some carbs within a few hours.",
+   "If you have a medical condition or follow a specific diet, follow your clinician's or dietitian's advice instead."
+  ],
+  "hydration": "Drink water through the day and sip during the session. Follow your own bladder routine and your clinician's advice on fluids."
+ },
+ "clarifying_questions": [
+  "What is the level of your injury or condition, and how is your trunk control?",
+  "Do any movements cause shoulder pain at the moment?",
+  "Can you use machines from your chair, or can you transfer to a machine seat?",
+  "How many days and minutes a week do you actually have?"
+ ]
+}

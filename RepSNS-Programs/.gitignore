@@ -1,0 +1,7 @@
+/dist/
+/.local/
+/upstream/
+/.env*
+/.wrangler/
+/.dev.vars*
+/node_modules/

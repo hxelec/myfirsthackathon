@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b2118">
+<meta name="description" content="Create strength programs, review your training week and see velocity-loss targets for your RepSNS watch.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>RepSNS — Master plan</title>
+<style>
+:root{
+ --bg:#0b2118;--panel:#10291d;--panel-2:#143325;--ink:#f2efdf;--muted:#b2bfac;--faint:#8a9c85;
+ --lime:#c6e65b;--line:rgba(215,231,200,.17);--grid:rgba(215,231,200,.10);
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--warn:#f0c674;
+ --serif:'Libre Caslon Text',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+ color-scheme:dark
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 80% 0%,#1c3c28 0,transparent 36rem),var(--bg);color:var(--ink);font:16px/1.55 var(--sans)}
+a{color:var(--lime)}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:inline-flex;align-items:center;gap:9px;font:600 27px/1.2 var(--serif);letter-spacing:-.025em;color:inherit;text-decoration:none}
+.brand img{width:34px;height:34px}
+.brand span{color:var(--lime)}
+.mode{font-size:14px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.mode.live:before{content:'● ';color:var(--lime)}
+.disclaimer{margin:18px 0 26px;padding:14px 16px;border-radius:12px;border:1px solid #f0c67455;background:#f0c67412;font-size:14px;color:#f3e6c4}
+.disclaimer strong{color:var(--warn)}
+h1{font:600 34px/1.2 var(--serif);margin:0 0 8px}
+h2{font:600 24px/1.25 var(--serif);margin:0 0 12px}
+h3{font:600 18px/1.3 var(--sans);margin:0 0 8px}
+.lede{color:var(--muted);margin:0 0 24px;max-width:720px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px}
+.plan-overview{background:linear-gradient(135deg,#184131,var(--panel) 74%);padding:clamp(22px,4vw,42px)}
+.plan-overview h1{font-size:clamp(2rem,5vw,3.25rem);letter-spacing:-.035em}
+.plan-overview>p{max-width:75ch;color:var(--muted)}
+.plan-title{display:flex;align-items:flex-start;gap:12px;min-width:0;overflow-wrap:anywhere}
+.lib-plan-title{display:flex;align-items:center;gap:8px}
+.master-star{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:11px;color:var(--muted);font:26px/1 system-ui,sans-serif}
+.master-star:hover,.master-star[aria-pressed=true]{color:var(--lime);border-color:#c6e65b77;background:#c6e65b14}
+.lib-plan-title .master-star{width:34px;height:34px;border-radius:8px;font-size:19px}
+.lib-head{gap:10px;flex-wrap:wrap}
+button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.prog-actions a,.prog-actions button{min-height:34px}
+@media(max-width:470px){.wrap{padding:17px 14px 46px}.card{padding:16px}.lib-grid{grid-template-columns:1fr}.nav a{padding:7px 10px}.savebar input[type=text]{min-width:0}.mode{font-size:13px}}
+
+/* Questionnaire */
+.q{margin-bottom:22px}
+.q:last-child{margin-bottom:0}
+.q>label,.q>.qlabel{display:block;font-weight:600;margin-bottom:4px}
+.q .hint{display:block;font-size:13px;color:var(--faint);margin-bottom:10px;font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label{padding:8px 14px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:14px;cursor:pointer;user-select:none;transition:background .12s,border-color .12s}
+.chips label:hover{border-color:#d1e3bb66;color:var(--ink)}
+.chips input:checked+label{background:var(--lime);border-color:var(--lime);color:#13230f;font-weight:600}
+.chips input:focus-visible+label{outline:2px solid var(--lime);outline-offset:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+textarea,input[type=text]{width:100%;background:#0b2118;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);font:15px/1.45 var(--sans);outline:none;resize:vertical}
+textarea:focus,input[type=text]:focus{border-color:#c6e65b88}
+textarea::placeholder,input::placeholder{color:#7d8f78}
+.range-row{display:flex;align-items:center;gap:14px}
+input[type=range]{flex:1;accent-color:var(--lime)}
+.range-val{min-width:84px;font-weight:600;color:var(--lime)}
+.primary{background:var(--lime);color:#13230f;font-weight:700;padding:13px 26px;border-radius:12px;font-size:16px}
+.primary:disabled{opacity:.6;cursor:wait}
+.ghost{border:1px solid var(--line);padding:9px 16px;border-radius:10px;color:var(--ink);font-size:14px}
+.ghost:hover{border-color:#d1e3bb66}
+.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.error{color:#f4b2a3;font-size:14px}
+fieldset{border:0;padding:0;margin:0}
+legend{padding:0}
+
+/* Loading */
+.loading{display:none;text-align:center;padding:46px 20px}
+.loading.on{display:block}
+.spinner{width:42px;height:42px;margin:0 auto 16px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--lime);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{color:var(--muted);margin:6px 0}
+
+/* Results */
+#results{display:none}
+#results.on{display:block}
+.result-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.pill{display:inline-block;font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin:0 6px 6px 0}
+ul.clean{margin:0;padding-left:20px}
+ul.clean li{margin:4px 0}
+.vl-box{border-left:3px solid var(--lime);padding:8px 14px;background:#c6e65b0d;border-radius:0 10px 10px 0;margin-top:12px}
+.day-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.day-tabs button{padding:8px 14px;border-radius:10px;border:1px solid var(--line);color:var(--muted);font-size:14px}
+.day-tabs button[aria-selected=true]{background:var(--panel-2);border-color:var(--lime);color:var(--ink);font-weight:600}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0 16px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--grid);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:600;background:#0d2419;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num{white-space:nowrap;font-variant-numeric:tabular-nums}
+.vl-tag{display:inline-block;padding:2px 8px;border-radius:6px;background:#c6e65b22;color:var(--lime);font-weight:600;font-variant-numeric:tabular-nums}
+.vl-tag.none{background:transparent;color:var(--faint);font-weight:400}
+.day-meta{color:var(--muted);font-size:14px;margin-bottom:4px}
+.over{color:var(--warn)}
+.nutri{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:760px){.nutri{grid-template-columns:1fr}}
+.nutri>div{background:var(--panel-2);border-radius:12px;padding:16px}
+.qchips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
+.qchips button{font-size:13px;text-align:left;padding:7px 12px;border-radius:10px;border:1px dashed #c6e65b66;color:var(--ink)}
+.qchips button:hover{background:#c6e65b14}
+
+/* Chart carousel */
+.viz-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.viz-nav{display:flex;gap:8px;align-items:center}
+.viz-nav button.arrow{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);font-size:18px;color:var(--ink)}
+.viz-nav button.arrow:hover{border-color:var(--lime)}
+.viz-nav button.arrow:disabled{opacity:.35;cursor:default}
+.viz-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px;scrollbar-width:thin}
+.viz-tabs button{flex:none;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.viz-tabs button[aria-selected=true]{background:var(--lime);color:#13230f;border-color:var(--lime);font-weight:600}
+.carousel{display:flex;align-items:flex-start;transition:height .2s ease;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;gap:0;scrollbar-width:none;border-radius:12px}
+.carousel::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:start;padding:6px 4px 4px}
+.slide h3{margin-bottom:2px}
+.slide .sub{font-size:13px;color:var(--faint);margin:0 0 10px}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{fill:var(--muted);font:12px var(--sans)}
+.chart .val{fill:var(--ink);font-weight:600}
+.chart .axis{stroke:var(--line)}
+.chart .gridline{stroke:var(--grid)}
+.chart .hit{fill:transparent}
+.chart .mark{transition:opacity .12s}
+.chart.hovering .mark{opacity:.45}
+.chart.hovering .mark.active{opacity:1}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:4px 0 8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.tooltip{position:absolute;pointer-events:none;background:#071710;border:1px solid #d1e3bb44;border-radius:10px;padding:8px 11px;font-size:13px;color:var(--ink);box-shadow:0 10px 30px #0007;white-space:nowrap;opacity:0;transition:opacity .1s;z-index:5}
+.tooltip.on{opacity:1}
+.tooltip b{display:block;margin-bottom:2px}
+.dots{display:flex;justify-content:center;gap:7px;margin-top:10px}
+.dots button{width:8px;height:8px;border-radius:50%;background:var(--line);padding:0}
+.dots button[aria-current=true]{background:var(--lime);width:22px;border-radius:5px}
+details.data{margin-top:8px;font-size:13px}
+details.data summary{color:var(--muted);cursor:pointer}
+.empty-chart{color:var(--faint);padding:40px 0;text-align:center}
+
+
+/* Nav, save bar, library and coach chat */
+.nav{display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px}
+.nav a{padding:8px 14px;border-radius:9px;color:var(--muted);font-size:14px;text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.nav a[aria-current=page]{background:var(--lime);color:#13230f;font-weight:600}
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.lib-grid .prog{margin:0}
+.prog.viewing{outline:2px solid var(--lime);outline-offset:1px}
+.prog-actions a{font-size:12px;padding:4px 9px;border-radius:7px;border:1px solid var(--line);color:var(--muted);text-decoration:none}
+.prog-actions a:hover{color:var(--ink)}
+.nav .count{font-size:12px;opacity:.8}
+.savebar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel-2);border:1px solid #c6e65b55;border-radius:14px;padding:14px 16px;margin-bottom:18px}
+.savebar input[type=text]{flex:1;min-width:200px}
+.savebar label.check{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted);cursor:pointer}
+.savebar input[type=checkbox]{accent-color:var(--lime);width:16px;height:16px}
+.savebar .saved-note{font-size:14px;color:var(--lime)}
+.small{padding:6px 12px;font-size:13px}
+.coach{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}
+@media(max-width:860px){.coach{grid-template-columns:1fr}}
+.lib{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;position:sticky;top:16px}
+.lib-head{display:flex;justify-content:space-between;align-items:center}
+.lib-head h2{margin:0;font-size:20px}
+.lib-hint{font-size:13px;color:var(--faint);margin:6px 0 12px}
+.prog{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:#0d2419}
+.prog.master{border-color:#c6e65b88}
+.prog-name{font-weight:600;word-break:break-word}
+.prog-meta{font-size:12px;color:var(--faint);margin:3px 0 8px}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--lime);color:#13230f;margin-left:6px;vertical-align:1px}
+.prog-actions{display:flex;flex-wrap:wrap;gap:6px}
+.prog-actions button{font-size:12px;padding:4px 9px;border-radius:7px;border:1px solid var(--line);color:var(--muted)}
+.prog-actions button:hover{color:var(--ink);border-color:#d1e3bb66}
+.prog-actions button.danger:hover{color:#f4b2a3;border-color:#f4b2a366}
+.chatcol{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;min-height:70vh}
+.chat-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.chatlog{flex:1;overflow-y:auto;max-height:62vh;display:flex;flex-direction:column;gap:12px;padding:4px 2px 12px}
+.msg{max-width:85%;padding:11px 15px;border-radius:14px;font-size:15px;line-height:1.55}
+.msg.user{align-self:flex-end;background:#c6e65b1f;border:1px solid #c6e65b44;white-space:pre-wrap}
+.msg.assistant{align-self:flex-start;background:var(--panel-2);border:1px solid var(--line)}
+.msg.error{align-self:flex-start;color:#f4b2a3;background:#f4b2a312;border:1px solid #f4b2a344}
+.msg p{margin:0 0 8px}.msg p:last-child{margin:0}
+.msg ul,.msg ol{margin:4px 0 8px;padding-left:20px}
+.msg h4{margin:8px 0 4px;font-size:15px}
+.msg table{font-size:13px;margin:6px 0}
+.msg .table-wrap{margin:6px 0}
+.msg .view-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.typing{align-self:flex-start;color:var(--muted);font-size:14px}
+.typing:after{content:'…';animation:blink 1.2s steps(3) infinite}
+@keyframes blink{50%{opacity:.3}}
+.sugg{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.sugg button{font-size:13px;padding:7px 12px;border-radius:999px;border:1px dashed #c6e65b66;color:var(--ink)}
+.sugg button:hover{background:#c6e65b14}
+.composer{display:flex;gap:10px;align-items:flex-end}
+.composer textarea{flex:1}
+.fine{font-size:12px;color:var(--faint);margin:10px 0 0}
+@media print{
+ body{background:#fff;color:#000}
+ .no-print,#builder,.viz-nav,.viz-tabs,.day-tabs,.dots,.refine{display:none!important}
+ [role=tabpanel][hidden]{display:block!important}
+ .card{border-color:#ccc;background:#fff}
+ .carousel{display:block;overflow:visible}
+ .slide{break-inside:avoid;margin-bottom:20px}
+ th{background:#eee;color:#333}
+ .chart text{fill:#333}
+}
+@media(prefers-reduced-motion:reduce){.carousel{scroll-behavior:auto}.spinner{animation-duration:3s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header class="top">
+  <a class="brand" href="/" aria-label="RepSNS home"><img src="/favicon.svg" alt=""><b>Rep<span>SNS</span></b></a>
+  <nav class="nav no-print" aria-label="Main">
+   <a href="/" aria-current="page">★ Master plan</a>
+   <a href="/coach">AI coach</a>
+  </nav>
+  <div class="mode" id="mode" role="status">Checking AI availability…</div>
+ </header>
+
+ <div class="disclaimer" role="note">
+  <strong>Not medical advice.</strong> RepSNS is a hackathon demo. We are not doctors, physiotherapists, dietitians or certified coaches, and these AI-generated programs have not been reviewed by one.
+  If you have a disability, injury, health condition, or are new to training, check the program with a qualified professional before you start. Stop if anything hurts.
+ </div>
+
+ <section id="library" class="card no-print">
+  <div class="lib-head"><h2>My workout plans</h2><button class="primary small" type="button" id="newProgram">+ Build a new plan</button></div>
+  <p class="lib-hint">Your ★ master plan is the one the AI coach uses by default. Manage plans here or by chatting with the <a href="/coach">AI coach</a>.</p>
+  <div id="libList" class="lib-grid"></div>
+  <p class="error" id="libraryError" role="alert"></p>
+ </section>
+
+ <section id="builder">
+  <h1>Build your velocity-loss program</h1>
+  <p class="lede">Answer a few questions. Claude writes a program around your watch's velocity-loss (VL) tracking. Each set ends when your reps slow down by a target percentage. You get rest times, warm-ups, VL targets, charts and basic nutrition tips.</p>
+
+  <div class="card" id="premade">
+   <h2>Start from a pre-made plan</h2>
+   <p class="lib-hint">Load a ready-made plan, then make it your ★ master plan. Or answer the questions below and Claude writes a new one for you.</p>
+   <div id="templateList" class="lib-grid"></div>
+   <span class="error" id="templateError" role="alert"></span>
+  </div>
+
+  <form id="form" novalidate>
+   <div class="card">
+    <h2>Schedule</h2>
+    <div class="grid2">
+     <fieldset class="q">
+      <legend class="qlabel">How many days a week can you train?</legend>
+      <div class="chips" data-name="days_per_week" data-type="radio" data-options="2,3,4,5,6" data-default="3"></div>
+     </fieldset>
+     <div class="q">
+      <label for="minutes">How much time do you have in the gym per session?</label>
+      <span class="hint">Include warm-up and rest.</span>
+      <div class="range-row"><input id="minutes" name="session_minutes" type="range" min="20" max="150" step="5" value="60"><span class="range-val" id="minutesVal">60 min</span></div>
+     </div>
+    </div>
+    <fieldset class="q">
+     <legend class="qlabel">Which days suit you? <span class="hint" style="display:inline">(optional)</span></legend>
+     <div class="chips" data-name="training_days" data-type="checkbox" data-options="Mon,Tue,Wed,Thu,Fri,Sat,Sun"></div>
+    </fieldset>
+   </div>
+
+   <div class="card">
+    <h2>Goals and preferences</h2>
+    <div class="grid2">
+     <fieldset class="q">
+      <legend class="qlabel">Main goal</legend>
+      <div class="chips" data-name="goal" data-type="radio" data-options="Build muscle,Get stronger,Power & speed,General fitness,Return to training gently" data-default="Build muscle"></div>
+     </fieldset>
+     <fieldset class="q">
+      <legend class="qlabel">Training experience</legend>
+      <div class="chips" data-name="experience" data-type="radio" data-options="New (under 6 months),Some (6–24 months),Experienced (2+ years)" data-default="Some (6–24 months)"></div>
+     </fieldset>
+     <fieldset class="q">
+      <legend class="qlabel">Preferred rep range</legend>
+      <div class="chips" data-name="rep_range" data-type="radio" data-options="3–5 (heavy),6–10,8–12,12–20 (light),Let Claude choose" data-default="6–10"></div>
+     </fieldset>
+     <fieldset class="q">
+      <legend class="qlabel">Equipment</legend>
+      <div class="chips" data-name="equipment" data-type="radio" data-options="Full gym,Machines & cables only,Dumbbells at home,Bodyweight & bands" data-default="Full gym"></div>
+     </fieldset>
+     <fieldset class="q">
+      <legend class="qlabel">How much volume can you recover from?</legend>
+      <span class="hint">Think about sleep, stress, job and soreness.</span>
+      <div class="chips" data-name="volume_capacity" data-type="radio" data-options="Low,Moderate,High,Not sure" data-default="Moderate"></div>
+     </fieldset>
+     <fieldset class="q">
+      <legend class="qlabel">How hard should sets push (velocity loss)?</legend>
+      <span class="hint">Your watch works in 20% steps. Higher VL means more reps and more fatigue.</span>
+      <div class="chips" data-name="vl_preference" data-type="radio" data-options="Let Claude choose,Conservative (20%),Moderate (40%),Hard (60%)" data-default="Let Claude choose"></div>
+     </fieldset>
+     <fieldset class="q">
+      <legend class="qlabel">Age range <span class="hint" style="display:inline">(optional)</span></legend>
+      <div class="chips" data-name="age_range" data-type="radio" data-options="Under 18,18–39,40–59,60+,Prefer not to say" data-default="Prefer not to say"></div>
+     </fieldset>
+    </div>
+   </div>
+
+   <div class="card">
+    <h2>Exercises and your body</h2>
+    <div class="grid2">
+     <div class="q">
+      <label for="include">Exercises you want included</label>
+      <span class="hint">e.g. leg press, pull-ups, incline bench</span>
+      <textarea id="include" name="include" rows="2"></textarea>
+     </div>
+     <div class="q">
+      <label for="avoid">Exercises to avoid</label>
+      <span class="hint">e.g. barbell back squat, overhead press</span>
+      <textarea id="avoid" name="avoid" rows="2"></textarea>
+     </div>
+    </div>
+    <div class="q">
+     <label for="limitations">Disability, injury or mobility considerations</label>
+     <span class="hint">e.g. "wheelchair user, full upper-body function" or "left knee replacement 2 years ago". Use fictional details for this demo.</span>
+     <textarea id="limitations" name="limitations" rows="2"></textarea>
+    </div>
+    <div class="q">
+     <label for="notes">Anything else? Tell Claude in your own words</label>
+     <textarea id="notes" name="notes" rows="3" placeholder="e.g. I want bigger shoulders, I train before work, I like supersets…"></textarea>
+    </div>
+   </div>
+
+   <div class="actions">
+    <button class="primary" id="go" type="submit">Build my program</button>
+    <span class="error" id="formError" role="alert"></span>
+   </div>
+  </form>
+ </section>
+
+ <section class="loading card" id="loading" aria-live="polite">
+  <div class="spinner"></div>
+  <h3 id="loadingTitle">Claude is writing your program…</h3>
+  <p id="loadingTip">This usually takes 30–60 seconds.</p>
+  <p id="elapsed" style="font-size:13px;color:var(--faint)"></p>
+ </section>
+
+ <section id="results" aria-live="polite"></section>
+
+</div>
+
+<script>
+'use strict';
+const $ = (s, el = document) => el.querySelector(s);
+const el = (tag, attrs = {}, ...kids) => {
+ const n = document.createElement(tag);
+ for (const [k, v] of Object.entries(attrs)) {
+  if (k === 'class') n.className = v; else if (k === 'text') n.textContent = v;
+  else if (k.startsWith('on')) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v);
+ }
+ for (const kid of kids.flat()) if (kid != null) n.append(kid.nodeType ? kid : document.createTextNode(kid));
+ return n;
+};
+const SVGNS = 'http://www.w3.org/2000/svg';
+const svg = (tag, attrs = {}, text) => {
+ const n = document.createElementNS(SVGNS, tag);
+ for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+ if (text != null) n.textContent = text;
+ return n;
+};
+const fmtRest = s => s >= 60 ? (s % 60 ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} min` : `${s / 60} min`) : `${s} s`;
+
+/* ---------- Questionnaire ---------- */
+document.querySelectorAll('.chips[data-name]').forEach((box, gi) => {
+ const { name, type, options, default: def } = box.dataset;
+ options.split(',').forEach((opt, i) => {
+  const id = `c${gi}_${i}`;
+  const input = el('input', { type, name, value: opt, id });
+  if (opt === def) input.checked = true;
+  box.append(input, el('label', { for: id, text: opt }));
+ });
+});
+const minutes = $('#minutes');
+minutes.addEventListener('input', () => $('#minutesVal').textContent = `${minutes.value} min`);
+
+function collectAnswers() {
+ const fd = new FormData($('#form'));
+ const a = {};
+ for (const [k, v] of fd.entries()) {
+  if (k === 'training_days') (a[k] ||= []).push(v); else a[k] = v;
+ }
+ return a;
+}
+
+/* ---------- Server ---------- */
+let aiAvailable = null;
+fetch('/api/status').then(r => { if (!r.ok) throw new Error(); return r.json(); }).then(s => {
+ aiAvailable = s.live;
+ const m = $('#mode');
+ m.textContent = s.live ? 'Claude connected' : 'Claude setup required';
+ m.classList.toggle('live', s.live);
+ if (!s.live) $('#formError').textContent = 'AI plan generation needs a Claude API key in Site settings. You can still load either pre-made plan.';
+}).catch(() => {
+ $('#mode').textContent = 'AI status unavailable';
+});
+
+let answers = null, program = null, currentSaved = null, programs = [];
+
+
+const tips = [
+ 'Tip: the first rep or two of each set sets your speed baseline.',
+ 'Tip: a 20% VL target stops the set early and keeps fatigue low.',
+ 'Tip: rest longer between heavy compound sets so the next set starts fast.',
+ 'Reminder: this is not medical advice. Check with a professional if unsure.',
+];
+let timer = null;
+function setLoading(on, title) {
+ $('#loading').classList.toggle('on', on);
+ $('#go').disabled = on;
+ if (title) $('#loadingTitle').textContent = title;
+ clearInterval(timer);
+ if (on) {
+  const t0 = Date.now(); let i = 0;
+  $('#loadingTip').textContent = 'This usually takes 30–60 seconds.';
+  timer = setInterval(() => {
+   const s = Math.round((Date.now() - t0) / 1000);
+   $('#elapsed').textContent = `${s}s elapsed`;
+   if (s % 6 === 0) $('#loadingTip').textContent = tips[i++ % tips.length];
+  }, 1000);
+ } else $('#elapsed').textContent = '';
+}
+
+async function requestProgram(body, title) {
+ if (aiAvailable === false) {
+  const warning = 'AI plan generation needs a Claude API key in Site settings.';
+  $('#formError').textContent = warning;
+  const refineError = $('#refineError');
+  if (refineError) refineError.textContent = warning;
+  return;
+ }
+ if ($('#loading').classList.contains('on')) return;
+ setLoading(true, title);
+ $('#loading').scrollIntoView({ behavior: 'smooth', block: 'center' });
+ try {
+  const res = await fetch('/api/program', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || 'RepSNS could not generate a plan. Please try again.');
+  program = data.program;
+  if (data.item) { currentSaved = data.item; setPrograms(data.programs); history.replaceState(null, '', `#program=${encodeURIComponent(data.item.id)}`); }
+  renderProgram(program, false, currentSaved);
+  $('#builder').hidden = true;
+ } catch (err) {
+  const msg = err instanceof TypeError ? 'Could not reach RepSNS. Check your connection and try again.' : err.message;
+  $('#formError').textContent = msg;
+  const re = $('#refineError'); if (re) re.textContent = msg;
+ } finally { setLoading(false); }
+}
+
+$('#form').addEventListener('submit', e => {
+ e.preventDefault();
+ $('#formError').textContent = '';
+ currentSaved = null;
+ answers = collectAnswers();
+ requestProgram({ answers }, 'Claude is writing your program…');
+});
+
+/* ---------- Results ---------- */
+function list(items) { return el('ul', { class: 'clean' }, (items || []).map(t => el('li', { text: t }))); }
+
+function renderProgram(p, sample, saved, scroll = true) {
+ const r = $('#results');
+ r.replaceChildren();
+ r.classList.add('on');
+ const limit = Number(answers?.session_minutes) || null;
+ r.append(el('div', { class: 'card plan-overview' },
+  el('div', { class: 'result-head' },
+   el('div', { class: 'plan-title' }, saved ? masterStar(saved) : null,
+    el('div', {}, el('h1', { text: p.title }), saved?.is_master ? el('span', { class: 'pill', text: 'Master plan' }) : null)),
+   el('div', { class: 'actions no-print' },
+    el('button', { class: 'ghost', type: 'button', text: 'Copy as text', onclick: e => copyText(p, e.target) }),
+    el('button', { class: 'ghost', type: 'button', text: 'Print / PDF', onclick: () => print() }),
+    el('button', { class: 'ghost', type: 'button', text: 'Edit answers', onclick: () => { $('#builder').hidden = false; $('#builder').scrollIntoView({ behavior: 'smooth' }); } }))),
+  el('p', { text: p.summary }),
+  p.assumptions?.length ? el('div', {}, el('h3', { text: 'What Claude assumed' }), list(p.assumptions)) : null,
+  el('div', { class: 'vl-box' }, el('h3', { text: 'How velocity loss works on your watch' }), el('p', { style: 'margin:0', text: p.velocity_loss_explainer }))));
+ r.append(saveBar(p, saved));
+
+ // Day-by-day tables
+ const dayCard = el('div', { class: 'card' }, el('h2', { text: 'Your week' }));
+ const tabs = el('div', { class: 'day-tabs', role: 'tablist' });
+ const panels = [];
+ p.days.forEach((d, i) => {
+  const btn = el('button', { type: 'button', role: 'tab', 'aria-selected': String(i === 0), text: d.name });
+  btn.addEventListener('click', () => {
+   tabs.querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', 'false'));
+   btn.setAttribute('aria-selected', 'true');
+   panels.forEach((pn, j) => pn.hidden = j !== i);
+  });
+  tabs.append(btn);
+  panels.push(renderDay(d, limit, i !== 0));
+ });
+ dayCard.append(tabs, ...panels);
+ r.append(dayCard);
+
+ r.append(renderCharts(p, limit));
+
+ // Progression
+ r.append(el('div', { class: 'card' },
+  el('h2', { text: 'Progression' }), list(p.progression_rules),
+  p.block_weeks?.length ? el('div', { class: 'table-wrap' }, el('table', {},
+   el('thead', {}, el('tr', {}, ['Week', 'Working sets / week', 'Main VL target', 'Focus'].map(h => el('th', { text: h })))),
+   el('tbody', {}, p.block_weeks.map(w => el('tr', {},
+    el('td', { class: 'num', text: `Week ${w.week}` }), el('td', { class: 'num', text: w.working_sets_per_week }),
+    el('td', {}, vlTag(w.target_vl_percent)), el('td', { text: w.focus })))))) : null,
+  p.adaptations?.length ? el('div', {}, el('h3', { text: 'Adaptations for you' }), list(p.adaptations)) : null));
+
+ // Nutrition
+ r.append(el('div', { class: 'card' },
+  el('h2', { text: 'Basic nutrition guidelines' }),
+  el('p', { class: 'day-meta', text: 'General tips only, not a diet plan. If you have a medical condition, diabetes, food allergies, an eating disorder or are pregnant, follow your doctor\'s or dietitian\'s advice.' }),
+  el('div', { class: 'nutri' },
+   el('div', {}, el('h3', { text: 'Before training' }), list(p.nutrition?.pre_workout)),
+   el('div', {}, el('h3', { text: 'After training' }), list(p.nutrition?.post_workout)),
+   el('div', {}, el('h3', { text: 'Hydration' }), el('p', { style: 'margin:0', text: p.nutrition?.hydration || '' })))));
+
+ // Refine
+ const ta = el('textarea', { id: 'refineText', rows: '3', placeholder: 'e.g. "Swap Romanian deadlifts for hip thrusts" or "I only have 45 minutes on Saturdays"' });
+ const qchips = el('div', { class: 'qchips' }, (p.clarifying_questions || []).map(q =>
+  el('button', { type: 'button', text: q, onclick: () => { ta.value = (ta.value ? ta.value + '\n' : '') + q + ' → '; ta.focus(); } })));
+ r.append(el('div', { class: 'card refine' },
+  el('h2', { text: 'Refine your program' }),
+  p.clarifying_questions?.length ? el('p', { class: 'day-meta', text: 'Claude would like to know. Click a question to answer it below.' }) : null,
+  qchips, ta,
+  el('div', { class: 'actions', style: 'margin-top:12px' },
+   el('button', { class: 'primary', type: 'button', text: 'Update program', onclick: () => {
+    $('#refineError').textContent = '';
+    if (!ta.value.trim()) { $('#refineError').textContent = 'Tell Claude what to change first.'; return; }
+    requestProgram({ answers, previous_program: program, refinement: ta.value, id: currentSaved?.id }, 'Claude is updating your program…');
+   } }),
+   el('span', { class: 'error', id: 'refineError', role: 'alert' }))));
+
+ r.append(el('div', { class: 'disclaimer', role: 'note' },
+  el('strong', { text: 'Reminder: ' }),
+  'This program was generated by AI for a hackathon demo. It is not medical, physiotherapy or nutrition advice, and we are not qualified professionals. Talk to a doctor or physiotherapist before starting, especially if you have a disability, injury or health condition.'));
+
+ if (scroll) r.scrollIntoView({ behavior: 'smooth' });
+}
+
+function vlTag(v) {
+ return v > 0 ? el('span', { class: 'vl-tag', text: `${v}%` }) : el('span', { class: 'vl-tag none', text: 'none' });
+}
+
+function renderDay(d, limit, hidden) {
+ const over = limit && d.estimated_minutes > limit;
+ const panel = el('div', { role: 'tabpanel' });
+ panel.hidden = hidden;
+ panel.append(
+  el('h3', { text: `${d.name} · ${d.focus}` }),
+  el('div', { class: 'day-meta' }, `About ${d.estimated_minutes} min`, over ? el('span', { class: 'over', text: ` (over your ${limit} min)` }) : null),
+  el('div', { class: 'table-wrap' }, el('table', {},
+   el('thead', {}, el('tr', {}, el('th', { text: 'General warm-up' }), el('th', { text: 'Do' }))),
+   el('tbody', {}, d.warmup.map(w => el('tr', {}, el('td', { text: w.activity }), el('td', { text: w.prescription })))))),
+  el('div', { class: 'table-wrap' }, el('table', {},
+   el('thead', {}, el('tr', {}, ['#', 'Exercise', 'Warm-up sets', 'Working sets', 'Reps', 'Stop at VL', 'Rest', 'Notes'].map(h => el('th', { text: h })))),
+   el('tbody', {}, d.exercises.map((x, i) => el('tr', {},
+    el('td', { class: 'num', text: i + 1 }),
+    el('td', {}, el('strong', { text: x.name }), el('br'), el('span', { style: 'color:var(--faint);font-size:12px', text: x.muscle_group })),
+    el('td', { text: x.warmup_sets }),
+    el('td', { class: 'num', text: x.working_sets }),
+    el('td', { class: 'num', text: x.rep_range }),
+    el('td', {}, vlTag(x.target_vl_percent)),
+    el('td', { class: 'num', text: fmtRest(x.rest_seconds) }),
+    el('td', { text: x.notes })))))),
+  el('div', { class: 'day-meta' }, el('strong', { text: 'Cool-down: ' }), d.cooldown));
+ return panel;
+}
+
+function copyText(p, btn) {
+ const lines = [p.title, '', p.summary, '', 'NOT MEDICAL ADVICE. AI-generated hackathon demo. Check with a qualified professional.', ''];
+ for (const d of p.days) {
+  lines.push(`== ${d.name}: ${d.focus} (~${d.estimated_minutes} min) ==`, 'Warm-up:');
+  d.warmup.forEach(w => lines.push(`  - ${w.activity}: ${w.prescription}`));
+  d.exercises.forEach((x, i) => lines.push(`${i + 1}. ${x.name}: warm-up ${x.warmup_sets}; ${x.working_sets}x${x.rep_range}` +
+   `${x.target_vl_percent > 0 ? ` to ${x.target_vl_percent}% VL` : ''}; rest ${fmtRest(x.rest_seconds)}. ${x.notes}`));
+  lines.push(`Cool-down: ${d.cooldown}`, '');
+ }
+ lines.push('Progression:', ...p.progression_rules.map(t => `- ${t}`), '', 'Nutrition (general guidance):',
+  ...p.nutrition.pre_workout.map(t => `- Before: ${t}`), ...p.nutrition.post_workout.map(t => `- After: ${t}`), `- Hydration: ${p.nutrition.hydration}`);
+ navigator.clipboard.writeText(lines.join('\n')).then(() => { btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy as text', 1500); });
+}
+
+
+/* ---------- Saving and the program library ---------- */
+async function api(path, body) {
+ const res = await fetch(path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {});
+ const data = await res.json().catch(() => ({}));
+ if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+ return data;
+}
+function setPrograms(list) {
+ programs = list || [];
+ renderLibrary();
+}
+// On load: open the plan in the URL (#program=id), the builder (#new), or the master plan.
+api('/api/programs').then(d => {
+ setPrograms(d.programs);
+ const m = /^#program=(.+)$/.exec(location.hash);
+ const wanted = m && programs.find(x => x.id === decodeURIComponent(m[1]));
+ const master = programs.find(x => x.is_master);
+ if (location.hash !== '#new' && (wanted || master)) viewProgram((wanted || master).id, Boolean(wanted));
+}).catch(() => { $('#libraryError').textContent = 'Could not load your workout plans. Refresh the page to try again.'; });
+addEventListener('hashchange', () => {
+ const m = /^#program=(.+)$/.exec(location.hash);
+ if (m) viewProgram(decodeURIComponent(m[1]));
+ else if (location.hash === '#new') $('#newProgram').click();
+});
+
+function masterStar(item) {
+ return el('button', {
+  type: 'button', class: 'master-star no-print', 'data-master-plan': item.id,
+  'aria-label': `Master plan for ${item.name}`, 'aria-pressed': String(item.is_master),
+  title: item.is_master ? 'Current master plan' : 'Make this the master plan',
+  onclick: () => makeMaster(item.id),
+ }, el('span', { 'aria-hidden': 'true', text: item.is_master ? '★' : '☆' }));
+}
+
+let changingMaster = false;
+async function makeMaster(id) {
+ if (changingMaster || programs.find((item) => item.id === id)?.is_master) return;
+ changingMaster = true;
+ try { await libAction({ action: 'master', id }); }
+ finally { changingMaster = false; }
+}
+
+function saveBar(p, saved) {
+ const name = el('input', { type: 'text', 'aria-label': 'Program name', placeholder: 'Name your program', value: saved?.name || p.title || '' });
+ const master = el('input', { type: 'checkbox' });
+ master.checked = saved ? saved.is_master : true;
+ const note = el('span', { class: 'saved-note' });
+ const err = el('span', { class: 'error' });
+ const doSave = async asNew => {
+  err.textContent = '';
+  try {
+   const d = await api('/api/programs', { action: 'save', id: asNew ? null : saved?.id, name: name.value, program: p, answers, master: saved ? false : master.checked });
+   setPrograms(d.programs);
+   currentSaved = d.item;
+   if (!saved) startCoachAfterSave(d.item);
+   else { renderProgram(p, false, d.item); history.replaceState(null, '', `#program=${encodeURIComponent(d.item.id)}`); }
+  } catch (e) { err.textContent = e.message; }
+ };
+ const buttons = saved
+  ? [el('button', { class: 'primary', type: 'button', text: 'Save name', onclick: () => doSave(false) }),
+     el('button', { class: 'ghost', type: 'button', text: 'Save as new copy', onclick: () => doSave(true) }),
+     el('a', { class: 'ghost', href: `/coach?saved=${encodeURIComponent(saved.id)}`, text: 'Open AI coach' })]
+  : [el('button', { class: 'primary', type: 'button', text: 'Save & open AI coach', onclick: () => doSave(false) })];
+ if (saved) note.textContent = saved.is_master ? 'The AI coach uses this plan by default.' : '';
+ return el('div', { class: 'savebar no-print' },
+  el('strong', { text: saved ? 'Saved plan' : 'Like it? Save it:' }), name,
+  saved ? null : el('label', { class: 'check' }, master, 'Make this my ★ master program'), ...buttons, note, err);
+}
+
+function startCoachAfterSave(item) {
+ location.href = `/coach?saved=${encodeURIComponent(item.id)}`;
+}
+function viewProgram(id, scroll = true) {
+ const item = programs.find(x => x.id === id);
+ if (!item) return;
+ currentSaved = item; program = item.program; answers = item.answers || {};
+ $('#builder').hidden = true;
+ renderProgram(item.program, false, item, scroll);
+ renderLibrary();
+ history.replaceState(null, '', `#program=${encodeURIComponent(id)}`);
+}
+
+async function libAction(body) {
+ try {
+  const d = await api('/api/programs', body);
+  const focusedStar = document.activeElement?.closest('.master-star');
+  const starArea = focusedStar?.closest('#results, #libList');
+  setPrograms(d.programs);
+  if (currentSaved) {
+   const current = d.programs.find((item) => item.id === currentSaved.id) || d.programs.find((item) => item.is_master);
+   if (current) viewProgram(current.id, false);
+  }
+  if (starArea) starArea.querySelector(`[data-master-plan="${CSS.escape(focusedStar.dataset.masterPlan)}"]`)?.focus({ preventScroll: true });
+  return d;
+ }
+ catch (e) { alert(e.message); }
+}
+
+function renderLibrary() {
+ const box = $('#libList');
+ box.replaceChildren();
+ if (!programs.length) {
+  box.append(el('p', { class: 'lib-hint', text: 'No saved plans yet. Build one below. It becomes your master plan automatically.' }));
+  return;
+ }
+ [...programs].sort((a, b) => b.is_master - a.is_master || (b.updated || '').localeCompare(a.updated || '')).forEach(item => {
+  const days = item.program.days || [];
+  box.append(el('div', { class: `prog${item.is_master ? ' master' : ''}${currentSaved?.id === item.id ? ' viewing' : ''}` },
+   el('div', { class: 'lib-plan-title' }, masterStar(item),
+    el('div', { class: 'prog-name' }, item.name, item.is_master ? el('span', { class: 'badge', text: 'Master' }) : null)),
+   el('div', { class: 'prog-meta', text: `${days.length} days · updated ${item.updated || ''}` }),
+   el('div', { class: 'prog-actions' },
+    el('button', { type: 'button', text: 'View', onclick: () => viewProgram(item.id) }),
+    el('a', { href: '/coach', text: 'Ask AI coach' }),
+    el('button', { type: 'button', text: 'Rename', onclick: () => {
+     const n = prompt('New name for this program:', item.name);
+     if (n && n.trim()) libAction({ action: 'rename', id: item.id, name: n });
+    } }),
+    el('button', { type: 'button', class: 'danger', text: 'Delete', onclick: () => {
+     if (confirm(`Delete "${item.name}"? This can't be undone.`)) libAction({ action: 'delete', id: item.id });
+    } }))));
+ });
+}
+$('#newProgram').addEventListener('click', () => { currentSaved = null; $('#builder').hidden = false; $('#results').replaceChildren(); $('#results').classList.remove('on'); renderLibrary(); history.replaceState(null, '', '#new'); $('#builder').scrollIntoView({ behavior: 'smooth' }); });
+
+/* ---------- Pre-made plans ---------- */
+api('/api/templates').then(d => {
+ const box = $('#templateList');
+ for (const t of d.templates || []) {
+  box.append(el('div', { class: 'prog' },
+   el('div', { class: 'prog-name', text: t.name }),
+   el('div', { class: 'prog-meta', text: `${t.days} days · ${t.summary.split('. ')[0]}.` }),
+   el('div', { class: 'prog-actions' },
+    el('button', { type: 'button', class: 'primary small', text: 'Load this plan', onclick: async () => {
+     $('#templateError').textContent = '';
+     try {
+      const r = await api('/api/programs', { action: 'load_template', template_id: t.id });
+      setPrograms(r.programs);
+      viewProgram(r.item.id);
+     } catch (e) { $('#templateError').textContent = e.message; }
+    } }))));
+ }
+}).catch(() => { $('#templateError').textContent = 'Could not load the templates. Refresh the page to try again.'; });
+
+/* ---------- Charts ---------- */
+function estimateTime(d) {
+ let warm = 0, work = 0, rest = 0;
+ for (const w of d.warmup) { const m = /(\d+)\s*min/i.exec(w.prescription); warm += m ? +m[1] : 2; }
+ for (const x of d.exercises) {
+  const m = /^\s*(\d+)\s*x/i.exec(x.warmup_sets || '');
+  const wu = m ? +m[1] : 0;
+  warm += wu * 1.5;
+  work += x.working_sets * 40 / 60;
+  rest += x.working_sets * x.rest_seconds / 60;
+ }
+ return { 'Warm-up': Math.round(warm), 'Lifting': Math.round(work), 'Rest': Math.round(rest) };
+}
+
+function renderCharts(p, limit) {
+ const allEx = p.days.flatMap(d => d.exercises.map(x => ({ ...x, day: d.name })));
+ const unique = [...new Map(allEx.map(x => [x.name, x])).values()];
+
+ const setsByMuscle = {};
+ allEx.forEach(x => setsByMuscle[x.muscle_group] = (setsByMuscle[x.muscle_group] || 0) + x.working_sets);
+ const muscle = Object.entries(setsByMuscle).sort((a, b) => b[1] - a[1]).map(([label, v]) => ({ label, value: v, tip: `${v} working sets per week` }));
+
+ const byRegion = {};
+ allEx.forEach(x => byRegion[x.body_region] = (byRegion[x.body_region] || 0) + x.working_sets);
+
+ const time = p.days.map(d => ({ label: shortDay(d.name), full: d.name, parts: estimateTime(d), total: d.estimated_minutes }));
+ const vl = unique.filter(x => x.target_vl_percent > 0).sort((a, b) => b.target_vl_percent - a.target_vl_percent)
+  .map(x => ({ label: x.name, value: x.target_vl_percent, tip: `Stop each set at ${x.target_vl_percent}% velocity loss · ${x.rep_range} reps` }));
+ const rest = [...unique].sort((a, b) => b.rest_seconds - a.rest_seconds)
+  .map(x => ({ label: x.name, value: x.rest_seconds / 60, display: fmtRest(x.rest_seconds), tip: `${fmtRest(x.rest_seconds)} between sets` }));
+ const weeks = p.block_weeks || [];
+
+ const slides = [
+  { name: 'Sets per muscle', title: 'Weekly working sets by muscle group', sub: 'Hard sets counted across all training days.', draw: () => hbar(muscle, { unit: 'sets' }), table: [['Muscle group', 'Sets / week'], ...muscle.map(m => [m.label, m.value])] },
+  { name: 'Session time', title: 'Estimated session time per day', sub: limit ? `Warm-up, lifting and rest, in minutes. The dashed line is your ${limit}-minute limit.` : 'Warm-up, lifting and rest, in minutes.', draw: () => stacked(time, ['Warm-up', 'Lifting', 'Rest'], limit), table: [['Day', 'Warm-up', 'Lifting', 'Rest', 'Claude\'s estimate'], ...time.map(t => [t.label, t.parts['Warm-up'], t.parts.Lifting, t.parts.Rest, t.total])] },
+  { name: 'VL targets', title: 'Velocity-loss stop point by exercise', sub: 'Higher bars mean longer, harder sets before the watch buzzes.', draw: () => hbar(vl, { unit: '%', max: 60, fmt: v => `${v}%` }), table: [['Exercise', 'VL target'], ...vl.map(v => [v.label, `${v.value}%`])] },
+  { name: 'Rest times', title: 'Rest between sets by exercise', sub: 'Longer rest lets bar speed recover for the next set.', draw: () => hbar(rest, { unit: 'min', fmt: v => fmtRest(Math.round(v * 60)) }), table: [['Exercise', 'Rest'], ...rest.map(r => [r.label, r.display])] },
+  { name: 'Upper vs lower', title: 'Weekly sets by body region', sub: 'Balance of upper, lower, full-body and core work.', draw: () => hbar(Object.entries(byRegion).map(([label, value]) => ({ label, value, tip: `${value} working sets per week` })), { unit: 'sets' }), table: [['Region', 'Sets / week'], ...Object.entries(byRegion)] },
+  { name: 'Block volume', title: 'Weekly working sets across the block', sub: 'How total volume ramps and backs off week to week.', draw: () => vbar(weeks.map(w => ({ label: `Wk ${w.week}`, value: w.working_sets_per_week, tip: `${w.working_sets_per_week} sets · ${w.focus}` }))), table: [['Week', 'Sets'], ...weeks.map(w => [w.week, w.working_sets_per_week])] },
+  { name: 'Block VL', title: 'Main velocity-loss target across the block', sub: 'The headline VL stop point for each week.', draw: () => line(weeks.map(w => ({ label: `Wk ${w.week}`, value: w.target_vl_percent, tip: `${w.target_vl_percent}% VL · ${w.focus}` })), { fmt: v => `${v}%` }), table: [['Week', 'VL target'], ...weeks.map(w => [w.week, `${w.target_vl_percent}%`])] },
+ ];
+
+ const card = el('div', { class: 'card' });
+ const prev = el('button', { class: 'arrow', type: 'button', 'aria-label': 'Previous chart', text: '‹' });
+ const next = el('button', { class: 'arrow', type: 'button', 'aria-label': 'Next chart', text: '›' });
+ const counter = el('span', { style: 'font-size:13px;color:var(--faint);min-width:44px;text-align:center' });
+ card.append(el('div', { class: 'viz-head' }, el('h2', { style: 'margin:0', text: 'Charts' }), el('div', { class: 'viz-nav' }, prev, counter, next)));
+ const tabs = el('div', { class: 'viz-tabs', role: 'tablist', 'aria-label': 'Chart type' });
+ const carousel = el('div', { class: 'carousel', tabindex: '0', 'aria-label': 'Charts, scroll sideways or use the arrow keys' });
+ const dots = el('div', { class: 'dots' });
+ card.append(tabs, carousel, dots);
+
+ slides.forEach((s, i) => {
+  const chart = s.draw();
+  const slide = el('div', { class: 'slide', role: 'group', 'aria-label': `${i + 1} of ${slides.length}: ${s.title}` },
+   el('h3', { text: s.title }), el('p', { class: 'sub', text: s.sub }), chart,
+   el('details', { class: 'data' }, el('summary', { text: 'Show data as table' }),
+    el('div', { class: 'table-wrap' }, el('table', {},
+     el('thead', {}, el('tr', {}, s.table[0].map(h => el('th', { text: h })))),
+     el('tbody', {}, s.table.slice(1).map(row => el('tr', {}, row.map(c => el('td', { text: c })))))))));
+  carousel.append(slide);
+  tabs.append(el('button', { type: 'button', role: 'tab', text: s.name, onclick: () => go(i) }));
+  dots.append(el('button', { type: 'button', 'aria-label': `Show ${s.name}`, onclick: () => go(i) }));
+ });
+
+ let current = 0;
+ function go(i) {
+  i = Math.max(0, Math.min(slides.length - 1, i));
+  carousel.scrollTo({ left: carousel.clientWidth * i });
+  mark(i);
+ }
+ function mark(i) {
+  current = i;
+  [...tabs.children].forEach((b, j) => b.setAttribute('aria-selected', String(j === i)));
+  [...dots.children].forEach((b, j) => b.setAttribute('aria-current', String(j === i)));
+  tabs.children[i].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  counter.textContent = `${i + 1} / ${slides.length}`;
+  prev.disabled = i === 0; next.disabled = i === slides.length - 1;
+  fit();
+ }
+ function fit() { carousel.style.height = `${carousel.children[current].offsetHeight}px`; }
+ carousel.addEventListener('toggle', fit, true);
+ new ResizeObserver(fit).observe(carousel);
+ prev.onclick = () => go(current - 1);
+ next.onclick = () => go(current + 1);
+ carousel.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); go(current - 1); }
+ });
+ let raf;
+ carousel.addEventListener('scroll', () => {
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(() => {
+   const i = Math.round(carousel.scrollLeft / carousel.clientWidth);
+   if (i !== current) mark(i);
+  });
+ });
+ mark(0);
+ return card;
+}
+
+const shortDay = n => { const h = n.split(/\s[-–—:]\s|\s\(/)[0]; return h.length > 14 ? h.slice(0, 13) + '…' : h; };
+
+/* Tooltip helper: shared per chart */
+function chartBox() {
+ const box = el('div', { class: 'chart' });
+ const tip = el('div', { class: 'tooltip' });
+ box.append(tip);
+ box.show = (evt, title, body, mark) => {
+  box.classList.add('hovering');
+  box.querySelectorAll('.mark.active').forEach(m => m.classList.remove('active'));
+  (Array.isArray(mark) ? mark : [mark]).forEach(m => m?.classList.add('active'));
+  tip.replaceChildren(el('b', { text: title }), body);
+  const r = box.getBoundingClientRect();
+  let x = evt.clientX - r.left + 14, y = evt.clientY - r.top + 14;
+  tip.classList.add('on');
+  if (x + tip.offsetWidth > r.width) x = evt.clientX - r.left - tip.offsetWidth - 14;
+  tip.style.left = `${Math.max(0, x)}px`; tip.style.top = `${y}px`;
+ };
+ box.hide = () => { box.classList.remove('hovering'); tip.classList.remove('on'); box.querySelectorAll('.mark.active').forEach(m => m.classList.remove('active')); };
+ box.addEventListener('mouseleave', box.hide);
+ return box;
+}
+function niceMax(v) { if (v <= 0) return 1; const p = 10 ** Math.floor(Math.log10(v)); for (const m of [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (m * p >= v) return m * p; return 10 * p; }
+function ticks(max, n = Number.isInteger(max / 4) ? 4 : 5) { return Array.from({ length: n + 1 }, (_, i) => +(max * i / n).toFixed(2)); }
+// Bar with 4px rounded data end, square at the baseline.
+function barPath(x, y, w, h, horizontal) {
+ const r = Math.min(4, horizontal ? h / 2 : w / 2, horizontal ? w : h);
+ if (w <= 0 || h <= 0) return '';
+ return horizontal
+  ? `M${x},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h - r}Q${x + w},${y + h} ${x + w - r},${y + h}H${x}Z`
+  : `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`;
+}
+
+function hbar(items, { max, fmt = v => String(v), unit } = {}) {
+ const box = chartBox();
+ if (!items.length) { box.append(el('div', { class: 'empty-chart', text: 'No data for this chart.' })); return box; }
+ const W = 760, L = 200, R = 56, row = 34, bh = 18, T = 8, H = T + items.length * row + 26;
+ const top = max ? Math.max(max, ...items.map(i => i.value)) : niceMax(Math.max(...items.map(i => i.value)));
+ const x = v => L + (W - L - R) * v / top;
+ const s = svg('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': items.map(i => `${i.label} ${fmt(i.value)}`).join(', ') });
+ ticks(top).forEach(t => {
+  s.append(svg('line', { class: 'gridline', x1: x(t), x2: x(t), y1: T, y2: H - 22 }));
+  s.append(svg('text', { x: x(t), y: H - 6, 'text-anchor': 'middle' }, fmt(t)));
+ });
+ items.forEach((it, i) => {
+  const y = T + i * row + (row - bh) / 2;
+  const label = it.label.length > 28 ? it.label.slice(0, 27) + '…' : it.label;
+  s.append(svg('text', { x: L - 10, y: y + bh / 2 + 4, 'text-anchor': 'end' }, label));
+  const bar = svg('path', { class: 'mark', d: barPath(L, y, x(it.value) - L, bh, true), fill: 'var(--lime)' });
+  s.append(bar);
+  s.append(svg('text', { class: 'val', x: x(it.value) + 6, y: y + bh / 2 + 4 }, it.display || fmt(it.value)));
+  const hit = svg('rect', { class: 'hit', x: 0, y: T + i * row, width: W, height: row });
+  hit.addEventListener('mousemove', e => box.show(e, it.label, it.tip || fmt(it.value), bar));
+  s.append(hit);
+ });
+ s.append(svg('line', { class: 'axis', x1: L, x2: L, y1: T, y2: H - 22 }));
+ box.prepend(s);
+ return box;
+}
+
+function vbar(items) {
+ const box = chartBox();
+ if (!items.length) { box.append(el('div', { class: 'empty-chart', text: 'No block data.' })); return box; }
+ const W = 760, H = 280, L = 40, B = 30, T = 16;
+ const top = niceMax(Math.max(...items.map(i => i.value)));
+ const band = (W - L) / items.length, bw = Math.min(56, band * 0.55);
+ const y = v => H - B - (H - B - T) * v / top;
+ const s = svg('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': items.map(i => `${i.label} ${i.value}`).join(', ') });
+ ticks(top).forEach(t => { s.append(svg('line', { class: 'gridline', x1: L, x2: W, y1: y(t), y2: y(t) })); s.append(svg('text', { x: L - 8, y: y(t) + 4, 'text-anchor': 'end' }, t)); });
+ items.forEach((it, i) => {
+  const cx = L + band * i + band / 2;
+  const bar = svg('path', { class: 'mark', d: barPath(cx - bw / 2, y(it.value), bw, H - B - y(it.value), false), fill: 'var(--lime)' });
+  s.append(bar, svg('text', { class: 'val', x: cx, y: y(it.value) - 6, 'text-anchor': 'middle' }, it.value), svg('text', { x: cx, y: H - 10, 'text-anchor': 'middle' }, it.label));
+  const hit = svg('rect', { class: 'hit', x: L + band * i, y: T, width: band, height: H - B - T });
+  hit.addEventListener('mousemove', e => box.show(e, it.label, it.tip, bar));
+  s.append(hit);
+ });
+ s.append(svg('line', { class: 'axis', x1: L, x2: W, y1: H - B, y2: H - B }));
+ box.prepend(s);
+ return box;
+}
+
+function line(items, { fmt = v => String(v) } = {}) {
+ const box = chartBox();
+ if (!items.length) { box.append(el('div', { class: 'empty-chart', text: 'No block data.' })); return box; }
+ const W = 760, H = 280, L = 44, R = 24, B = 30, T = 20;
+ const top = niceMax(Math.max(...items.map(i => i.value)));
+ const x = i => items.length === 1 ? (L + W - R) / 2 : L + (W - L - R) * i / (items.length - 1);
+ const y = v => H - B - (H - B - T) * v / top;
+ const s = svg('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': items.map(i => `${i.label} ${fmt(i.value)}`).join(', ') });
+ ticks(top).forEach(t => { s.append(svg('line', { class: 'gridline', x1: L, x2: W - R, y1: y(t), y2: y(t) })); s.append(svg('text', { x: L - 8, y: y(t) + 4, 'text-anchor': 'end' }, fmt(t))); });
+ s.append(svg('line', { class: 'axis', x1: L, x2: W - R, y1: H - B, y2: H - B }));
+ s.append(svg('path', { d: items.map((it, i) => `${i ? 'L' : 'M'}${x(i)},${y(it.value)}`).join(''), fill: 'none', stroke: 'var(--lime)', 'stroke-width': 2, 'stroke-linejoin': 'round' }));
+ const cross = svg('line', { x1: 0, x2: 0, y1: T, y2: H - B, stroke: 'var(--muted)', 'stroke-dasharray': '3 3', opacity: 0 });
+ s.append(cross);
+ items.forEach((it, i) => {
+  const dot = svg('circle', { class: 'mark', cx: x(i), cy: y(it.value), r: 5, fill: 'var(--lime)', stroke: 'var(--panel)', 'stroke-width': 2 });
+  s.append(dot, svg('text', { x: x(i), y: H - 10, 'text-anchor': 'middle' }, it.label));
+  if (i === 0 || i === items.length - 1 || it.value === Math.max(...items.map(d => d.value)))
+   s.append(svg('text', { class: 'val', x: x(i), y: y(it.value) - 12, 'text-anchor': 'middle' }, fmt(it.value)));
+ });
+ const hit = svg('rect', { class: 'hit', x: L, y: T, width: W - L - R, height: H - B - T });
+ hit.addEventListener('mousemove', e => {
+  const pt = s.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+  const loc = pt.matrixTransform(s.getScreenCTM().inverse());
+  let best = 0; items.forEach((_, i) => { if (Math.abs(x(i) - loc.x) < Math.abs(x(best) - loc.x)) best = i; });
+  cross.setAttribute('x1', x(best)); cross.setAttribute('x2', x(best)); cross.setAttribute('opacity', 1);
+  box.show(e, items[best].label, items[best].tip, s.querySelectorAll('circle.mark')[best]);
+ });
+ hit.addEventListener('mouseleave', () => cross.setAttribute('opacity', 0));
+ s.append(hit);
+ box.prepend(s);
+ return box;
+}
+
+function stacked(rows, keys, limit) {
+ const box = chartBox();
+ const colors = ['var(--s1)', 'var(--s2)', 'var(--s3)'];
+ const W = 760, L = 110, R = 60, row = 40, bh = 22, T = 8;
+ const H = T + rows.length * row + 26;
+ const sum = r => keys.reduce((a, k) => a + r.parts[k], 0);
+ const top = niceMax(Math.max(limit || 0, ...rows.map(sum)));
+ const x = v => L + (W - L - R) * v / top;
+ const s = svg('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': rows.map(r => `${r.label}: ${keys.map(k => `${k} ${r.parts[k]} min`).join(', ')}`).join('; ') });
+ ticks(top).forEach(t => { s.append(svg('line', { class: 'gridline', x1: x(t), x2: x(t), y1: T, y2: H - 22 })); s.append(svg('text', { x: x(t), y: H - 6, 'text-anchor': 'middle' }, t)); });
+ rows.forEach((r, i) => {
+  const y = T + i * row + (row - bh) / 2;
+  s.append(svg('text', { x: L - 10, y: y + bh / 2 + 4, 'text-anchor': 'end' }, r.label));
+  let acc = 0; const segs = [];
+  keys.forEach((k, j) => {
+   const v = r.parts[k]; if (!v) return;
+   const x0 = x(acc) + (acc ? 1 : 0), w = x(acc + v) - x(acc) - (acc ? 1 : 0) - 1;
+   const last = keys.slice(j + 1).every(kk => !r.parts[kk]);
+   const seg = last ? svg('path', { class: 'mark', d: barPath(x0, y, w + 1, bh, true), fill: colors[j] }) : svg('rect', { class: 'mark', x: x0, y, width: Math.max(0, w), height: bh, fill: colors[j] });
+   s.append(seg); segs.push(seg); acc += v;
+  });
+  s.append(svg('text', { class: 'val', x: x(acc) + 6, y: y + bh / 2 + 4 }, `${acc} min`));
+  const hit = svg('rect', { class: 'hit', x: 0, y: T + i * row, width: W, height: row });
+  hit.addEventListener('mousemove', e => box.show(e, r.full || r.label,
+   el('div', {}, keys.map((k, j) => el('div', {}, el('i', { style: `display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;background:${colors[j]}` }), `${k}: ${r.parts[k]} min`)),
+    el('div', { style: 'color:var(--muted);margin-top:3px', text: `Claude's estimate: ${r.total} min` })), segs));
+  s.append(hit);
+ });
+ if (limit) {
+  s.append(svg('line', { x1: x(limit), x2: x(limit), y1: T - 4, y2: H - 22, stroke: 'var(--warn)', 'stroke-width': 1.5, 'stroke-dasharray': '5 4' }));
+  s.append(svg('text', { x: x(limit), y: T + 2, 'text-anchor': 'middle', style: 'fill:var(--warn)' }, ''));
+ }
+ s.append(svg('line', { class: 'axis', x1: L, x2: L, y1: T, y2: H - 22 }));
+ box.prepend(s);
+ box.prepend(el('div', { class: 'legend' }, keys.map((k, j) => el('span', {}, el('i', { style: `background:${colors[j]}` }), k)),
+  limit ? el('span', {}, el('i', { style: 'background:none;border-top:2px dashed var(--warn);height:0;border-radius:0' }), `Your limit (${limit} min)`) : null));
+ return box;
+}
+</script>
+</body>
+</html>

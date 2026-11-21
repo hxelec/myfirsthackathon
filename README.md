@@ -1,12 +1,16 @@
 # RepSNS
 
-RepSNS is a hackathon prototype for making resistance-training sets easier to measure. An ESP32-S3 watch times the lifting portion of each rep from a wearable motion sensor, gives a vibration cue when a set reaches its selected slowdown threshold, and saves the readings to microSD. Lift Studio is the companion desktop viewer. It plays back these recordings or shows an estimated 3D pose live over Wi-Fi.
+RepSNS is a hackathon prototype for planning resistance training and measuring how a set changes from one rep to the next. The Program Builder lets you choose a workout in your browser. RepWatch times the lifting portion of each rep and vibrates at a selected slowdown threshold. Lift Studio plays back the watch recordings or shows an estimated 3D pose live over Wi-Fi.
 
-## Try it
+## Choose where to start
 
-- **Watch firmware.** Open [RepWatch.ino](RepWatch/RepWatch.ino) in Arduino IDE for the Waveshare ESP32-S3-Touch-AMOLED-2.06. Follow the [watch setup and calibration guide](RepWatch/README.md).
-- **Desktop viewer.** Follow the [Lift Studio setup guide](pullup-viewer/README.md), then launch [Launch-Lift-Studio.cmd](Launch-Lift-Studio.cmd) on Windows. **Demo** uses synthetic data and works without a watch. [Watch the five-exercise demo](pullup-viewer/demo/lift-studio-demo.mp4).
-- **Connect the two.** On the watch, turn on **Settings → Wireless**. On the laptop, join **LiftWatch-S3** with password `lift-demo`, select the exercise in Lift Studio, and click **Live**. For offline playback, open a saved CSV from the watch's microSD card.
+| What you want to do | Where to start | What you need |
+| --- | --- | --- |
+| Explore a workout and star it as your master plan | [Open Program Builder](https://repsns-programs.haase-indust-0781.chatgpt.site/) · [Source and local setup](RepSNS-Programs/README.md) | A browser |
+| See how a rep looks in 3D | [Watch the five-exercise demo](pullup-viewer/demo/lift-studio-demo.mp4) or [run Lift Studio](pullup-viewer/README.md) and choose **Demo** | A video player, or a Windows PC for the interactive demo |
+| Record a set on the watch | [Install and calibrate RepWatch](RepWatch/README.md) | Waveshare ESP32-S3-Touch-AMOLED-2.06 and a microSD card to save recordings |
+
+For a live session, turn on **Settings → Wireless** on the watch. Join **LiftWatch-S3** on the laptop with the demo password `lift-demo`, select the exercise in Lift Studio, and click **Live**. For offline playback, choose **Open CSV** and select a set from the watch’s microSD card. The charts in Program Builder use bundled sample sessions.
 
 ## What the prototype measures
 

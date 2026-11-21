@@ -1,0 +1,38 @@
+[
+  {
+    "day": "Mon",
+    "date": "9 Nov",
+    "reps": 7,
+    "load": 4
+  },
+  {
+    "day": "Wed",
+    "date": "11 Nov",
+    "reps": 9,
+    "load": 4
+  },
+  {
+    "day": "Fri",
+    "date": "13 Nov",
+    "reps": 10,
+    "load": 4
+  },
+  {
+    "day": "Mon",
+    "date": "16 Nov",
+    "reps": 8,
+    "load": 4
+  },
+  {
+    "day": "Wed",
+    "date": "18 Nov",
+    "reps": 11,
+    "load": 4
+  },
+  {
+    "day": "Fri",
+    "date": "20 Nov",
+    "reps": 13,
+    "load": 4
+  }
+]
