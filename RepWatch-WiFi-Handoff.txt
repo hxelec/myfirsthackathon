@@ -1,0 +1,120 @@
+RepWatch wireless handoff
+
+Task for the firmware chat
+
+Add live IMU streaming to the current RepWatch Arduino sketch for the Waveshare ESP32-S3-Touch-AMOLED-2.06. The receiving app is Lift Studio, in pullup-viewer. The two complete Arduino source files are below. Add them next to RepWatch.ino.
+
+Keep the change to the Wi-Fi module and its hooks in Watch.cpp. Reuse the existing board::Sample queue. The watch already has a QMI8658C driver, a startup sequence, exercise tracking and a microSD logger. Keep the existing rep timing, calibration, user interface, and CSV format. The current logger writes the exercise name, duration cutoff and tracking metadata.
+
+Merge points in Watch.cpp
+
+1. Add #include "ViewerStream.h" with the other includes.
+2. In watchBegin(), start Wi-Fi after board::startImu() succeeds. The current version starts the IMU near the end of watchBegin(), after setlog::begin() and the first draw. Keep its fault handling. Add this branch directly after the existing if (!board::startImu()) failure branch.
+
+   else if (!viewerstream::begin()) {
+     Serial.println("Viewer Wi-Fi unavailable");
+   }
+
+   Wi-Fi failure is nonfatal. Keep the watch and SD logger usable.
+
+3. In watchUpdate(), replace the current one-line board::pop() loop with this loop. The existing handler still receives every sample. submit() throttles only the Wi-Fi stream and queues a copy for the network task.
+
+   board::Sample sample;
+   while (board::pop(sample)) {
+     acceptSample(sample);
+     viewerstream::submit(sample);
+   }
+
+Protocol already supported by Lift Studio
+
+- The watch hosts the 2.4 GHz Wi-Fi access point LiftWatch-S3, password lift-demo. One laptop client can connect to TCP 192.168.4.1:8765.
+- Send one ASCII line per sample, terminated by LF.
+  IMU6,ms,ax_g,ay_g,az_g,gx_dps,gy_dps,gz_dps
+  IMU6,2040,0.03000,-0.14000,0.98000,1.2500,-3.5000,0.4200
+- ms comes directly from board::Sample.ms. Acceleration is in g and gyroscope readings are in degrees per second. Use the existing axes and values. The viewer estimates orientation and uses the exercise selected on the laptop.
+- Streaming targets up to 50 Hz. The network task takes the latest sample, accepts reconnects, and keeps a slow client away from rep timing and display updates.
+
+Build and verification
+
+1. In Arduino IDE select ESP32S3 Dev Module, flash size 32MB, OPI PSRAM, USB CDC On Boot enabled, and Partition Scheme > 32M Flash (4.8MB APP/22MB FATFS). Use the existing Waveshare GFX library and ESP32 board package from the sketch README.
+2. Compile and upload. After IMU warm-up, join LiftWatch-S3 from Windows. "No internet" is expected on this local network. In Lift Studio choose the exercise, click Live, and look for "Live / 6-axis IMU". Move the watch and capture the two endpoint poses.
+3. Disconnect and reconnect the laptop. Check that streaming resumes. Record a set with the laptop disconnected and confirm it still saves to the microSD card. The API form review uses an internet connection separately from this watch link.
+
+Source files follow. Each section is a complete file.
+
+===== ViewerStream.h =====
+#pragma once
+
+// Add ViewerStream.h and ViewerStream.cpp to the existing RepWatch sketch.
+#include "Board.h"
+
+namespace viewerstream {
+bool begin();
+void submit(const board::Sample &sample);
+}
+
+===== ViewerStream.cpp =====
+#include "ViewerStream.h"
+
+#include <WiFi.h>
+#include <Network.h>
+#include <lwip/sockets.h>
+
+namespace viewerstream {
+namespace {
+constexpr char ssid[] = "LiftWatch-S3";
+constexpr char password[] = "lift-demo";
+constexpr uint16_t port = 8765;
+constexpr uint32_t intervalMs = 20;
+QueueHandle_t latest = nullptr;
+
+void networkLoop(void *) {
+  NetworkServer server(port);
+  NetworkClient client;
+  server.begin();
+  for (;;) {
+    if (!client.connected()) {
+      client.stop();
+      client = server.accept();
+      if (client) client.setNoDelay(true);
+    }
+
+    board::Sample sample{};
+    if (xQueueReceive(latest, &sample, pdMS_TO_TICKS(20)) != pdTRUE || !client) continue;
+    const auto &a = sample.acceleration;
+    const auto &g = sample.gyro;
+    char line[128];
+    const int length = snprintf(line, sizeof(line),
+        "IMU6,%lu,%.5f,%.5f,%.5f,%.4f,%.4f,%.4f\n",
+        (unsigned long)sample.ms, a.x, a.y, a.z, g.x, g.y, g.z);
+    if (length <= 0 || length >= int(sizeof(line))) continue;
+    // Keep radio backpressure away from the watch UI and the IMU sampling task.
+    const int sent = ::send(client.fd(), line, length, MSG_DONTWAIT);
+    if (sent != length) client.stop();
+  }
+}
+}
+
+bool begin() {
+  if (latest) return true;
+  latest = xQueueCreate(1, sizeof(board::Sample));
+  if (!latest) return false;
+  const IPAddress address(192, 168, 4, 1);
+  if (WiFi.mode(WIFI_AP) && WiFi.softAPConfig(address, address, IPAddress(255, 255, 255, 0)) &&
+      WiFi.softAP(ssid, password) &&
+      xTaskCreate(networkLoop, "viewer-stream", 4096, nullptr, 1, nullptr) == pdPASS) return true;
+  WiFi.softAPdisconnect(true);
+  vQueueDelete(latest);
+  latest = nullptr;
+  return false;
+}
+
+void submit(const board::Sample &sample) {
+  static bool sent = false;
+  static uint32_t previous = 0;
+  if (!latest || (sent && sample.ms - previous < intervalMs)) return;
+  previous = sample.ms;
+  sent = true;
+  xQueueOverwrite(latest, &sample);
+}
+}
